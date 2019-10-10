@@ -73,3 +73,15 @@ func GetAsset(ctx context.Context, uri string) (*api.Asset, error) {
 	}
 	return &asset, nil
 }
+
+// CreateMeasurement records a link activation
+func CreateMeasurement(ctx context.Context, m *types.MeasurementDS) error {
+
+	k := datastore.IncompleteKey(api.DatastoreMeasurement, nil)
+	if _, err := dsClient.Put(ctx, k, m); err != nil {
+		logger.Error("MEASUREMENT: %s", err.Error())
+		return err
+	}
+
+	return nil
+}

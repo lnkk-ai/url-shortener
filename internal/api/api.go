@@ -2,9 +2,12 @@ package api
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/majordomusio/commons/pkg/util"
 	"github.com/majordomusio/url-shortener/internal/store"
+	"github.com/majordomusio/url-shortener/internal/types"
 	"github.com/majordomusio/url-shortener/pkg/api"
 	"google.golang.org/appengine"
 )
@@ -48,19 +51,28 @@ func RedirectEndpoint(c *gin.Context) {
 	ctx := appengine.NewContext(c.Request)
 
 	short := c.Param("short")
-
 	if short == "" {
 		// TODO log this event
-		c.String(http.StatusOK, "")
+		c.String(http.StatusOK, "42")
 		return
 	}
 
 	a, err := store.GetAsset(ctx, short)
 	if err != nil {
 		// TODO log this event
-		c.String(http.StatusOK, "")
+		c.String(http.StatusOK, "42")
 		return
 	}
+
+	// audit, i.e. extract some user data
+	m := types.MeasurementDS{
+		URI:            short,
+		IP:             c.ClientIP(),
+		UserAgent:      strings.ToLower(c.GetHeader("User-Agent")),
+		AcceptLanguage: strings.ToLower(c.GetHeader("Accept-Language")),
+		Created:        util.Timestamp(),
+	}
+	store.CreateMeasurement(ctx, &m)
 
 	// TODO log the event
 	c.Redirect(http.StatusTemporaryRedirect, a.URL)

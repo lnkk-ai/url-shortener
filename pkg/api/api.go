@@ -2,7 +2,7 @@ package api
 
 const (
 	// FullName is the name of the service
-	FullName string = "Shadowman-the-bot (shtb) url-shortener"
+	FullName string = "shadowman-the-bot (shtb), url-shortener"
 
 	// Version is the human readable version string of this build
 	Version string = "1.0"
@@ -15,6 +15,8 @@ const (
 
 	// DatastoreAssets collection ASSETS
 	DatastoreAssets string = "ASSETS"
+	// DatastoreMeasurement collection MEASUREMENT
+	DatastoreMeasurement string = "MEASUREMENT"
 )
 
 type (
@@ -30,3 +32,13 @@ type (
 		Cohort string `json:"cohort,omitempty"`
 	}
 )
+
+/*
+
+	// Parameters is a generic struct to store configuration parameters
+	Parameters struct {
+		Key   string `json:"key"`
+		Value string `json:"value"`
+	}
+
+*/
