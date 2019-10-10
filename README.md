@@ -33,3 +33,4 @@ gcloud config set project ...
 * https://cloud.google.com/appengine/docs/standard/go112/config/appref
 * https://cloud.google.com/appengine/docs/standard/go112/apis
 * https://cloud.google.com/logging/docs/reference/libraries#client-libraries-install-go
+* https://cloud.google.com/apis/docs/cloud-client-libraries
