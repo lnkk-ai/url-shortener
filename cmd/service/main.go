@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	a "github.com/majordomusio/url-shortener/internal/api"
+	"github.com/majordomusio/url-shortener/internal/store"
 	"github.com/majordomusio/url-shortener/pkg/api"
 )
 
@@ -48,6 +49,8 @@ func main() {
 
 func shutdown() {
 	log.Printf("Shutting down ...")
+	store.Close()
+	log.Printf("... done")
 }
 
 // status endpoints; not part of the API since they use internal state information

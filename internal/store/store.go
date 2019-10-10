@@ -22,6 +22,11 @@ func init() {
 	dsClient = c
 }
 
+// Close does the clean-up
+func Close() {
+	dsClient.Close()
+}
+
 // Get retrieves the asset
 func Get(uri string) (*api.Asset, error) {
 	return nil, nil

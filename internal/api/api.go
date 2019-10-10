@@ -67,6 +67,7 @@ func RedirectEndpoint(c *gin.Context) {
 	// audit, i.e. extract some user data
 	m := types.MeasurementDS{
 		URI:            short,
+		User:           "anonymous",
 		IP:             c.ClientIP(),
 		UserAgent:      strings.ToLower(c.GetHeader("User-Agent")),
 		AcceptLanguage: strings.ToLower(c.GetHeader("Accept-Language")),

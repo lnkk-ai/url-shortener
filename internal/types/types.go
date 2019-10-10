@@ -14,6 +14,7 @@ type (
 	// MeasurementDS records events
 	MeasurementDS struct {
 		URI            string `json:"uri" binding:"required"`
+		User           string `json:"user" binding:"required"`
 		IP             string `json:"ip,omitempty"`
 		UserAgent      string `json:"user_agent,omitempty"`
 		AcceptLanguage string `json:"accept_language,omitempty"`
