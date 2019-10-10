@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/shadowman-the-bot/shtb-url-shortener/pkg/api"
+	"github.com/majordomusio/url-shortener/pkg/api"
 )
 
 // DefaultEndpoint maps to GET /

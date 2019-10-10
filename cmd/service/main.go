@@ -9,8 +9,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	a "github.com/shadowman-the-bot/shtb-url-shortener/internal/api"
-	"github.com/shadowman-the-bot/shtb-url-shortener/pkg/api"
+	a "github.com/majordomusio/url-shortener/internal/api"
+	"github.com/majordomusio/url-shortener/pkg/api"
 )
 
 func main() {

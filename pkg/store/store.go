@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/shadowman-the-bot/shtb-url-shortener/pkg/api"
+	"github.com/majordomusio/url-shortener/pkg/api"
 )
 
 var cache map[string]*api.Asset

@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/majordomusio/commons/pkg/helper"
 	"github.com/majordomusio/commons/pkg/util"
-	"github.com/shadowman-the-bot/shtb-url-shortener/pkg/api"
-	"github.com/shadowman-the-bot/shtb-url-shortener/pkg/store"
+	"github.com/majordomusio/url-shortener/pkg/api"
+	"github.com/majordomusio/url-shortener/pkg/store"
 )
 
 // ShortenEndpoint receives a URI to be shortened
