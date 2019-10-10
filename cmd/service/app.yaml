@@ -1,0 +1,16 @@
+service: default
+
+runtime: go112
+instance_class: F1
+main: github.com/shadowman-the-bot/shtb-url-shortener/cmd/service
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  ADMIN_CLIENT_TOKEN: 'xoxo-1234'
+  PROJECT_ID: 'shtb-url-shortener'
+  REGION: 'europe-west'
+  APP_PLATFORM: 'gae'
+  GIN_MODE: 'release'

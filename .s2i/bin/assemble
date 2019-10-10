@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -e
+
+pushd /tmp/src
+
+echo "---> Assembling GOPATH"
+
+export GOPATH=`realpath $HOME/go`
+
+mkdir -p $GOPATH/src/$IMPORT_URL
+mv /tmp/src/* $GOPATH/src/$IMPORT_URL
+
+export INSTALL_URL=$IMPORT_URL/$BUILD_DIR
+
+if [[ ! -d $GOPATH/src/$IMPORT_URL/vendor ]]; then
+  echo "---> Resolving dependencies"
+
+  pushd $GOPATH/src/$INSTALL_URL
+  go get
+  popd
+
+else
+  echo "---> Using /vendor sources"
+fi
+
+pushd $GOPATH/src/$INSTALL_URL
+
+echo "---> Building"
+
+#go install $INSTALL_URL
+#mv $GOPATH/bin/* /opt/app-root/gobinary
+go build -v $INSTALL_URL
+mv $INSTALL_URL/service /opt/app-root/gobinary
+
+#while true
+#do
+#	echo "..."
+#	sleep 10
+#done
