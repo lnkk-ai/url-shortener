@@ -6,25 +6,42 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/majordomusio/commons/pkg/helper"
 	"github.com/majordomusio/commons/pkg/util"
+	"github.com/majordomusio/url-shortener/internal/store"
 	"github.com/majordomusio/url-shortener/pkg/api"
-	"github.com/majordomusio/url-shortener/pkg/store"
+	"google.golang.org/appengine"
 )
+
+// DefaultEndpoint maps to GET /
+func DefaultEndpoint(c *gin.Context) {
+	// TODO: real implementation, logging & auditing
+	c.JSON(http.StatusOK, gin.H{"vesion": api.Version, "status": "ok"})
+}
+
+// RobotsEndpoint maps to GET /robots.txt
+func RobotsEndpoint(c *gin.Context) {
+	// simply write text back ...
+	c.Header("Content-Type", "text/plain")
+
+	// a simple robots.txt file, disallow the API
+	c.Writer.Write([]byte("User-agent: *\n\n"))
+	c.Writer.Write([]byte("Disallow: /api/\n"))
+}
 
 // ShortenEndpoint receives a URI to be shortened
 func ShortenEndpoint(c *gin.Context) {
-	var asset api.Asset
 	topic := "api.shorten.post"
+	ctx := appengine.NewContext(c.Request)
 
+	var asset api.Asset
 	err := c.BindJSON(&asset)
 	if err == nil {
 		uri, _ := util.ShortUUID()
 		asset.URI = uri
 
-		store.Create(&asset)
+		err = store.CreateAsset(ctx, &asset)
 	}
 
 	helper.StandardJSONResponse(c, topic, asset, err)
-
 }
 
 // RedirectEndpoint receives a URI to be shortened
@@ -39,17 +56,18 @@ func RedirectEndpoint(c *gin.Context) {
 		return
 	}
 
-	a, err := store.Get(short)
+	/*
+		a, err := store.Get(short)
 
-	if err != nil {
-		// TODO log this event
-		c.String(http.StatusOK, "")
-		return
-	}
-
+		if err != nil {
+			// TODO log this event
+			c.String(http.StatusOK, "")
+			return
+		}
+	*/
 	//helper.StandardJSONResponse(c, topic, a, err)
 
 	// TODO log the event
-	c.Redirect(http.StatusTemporaryRedirect, a.URL)
+	//c.Redirect(http.StatusTemporaryRedirect, a.URL)
 
 }

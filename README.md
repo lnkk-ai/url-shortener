@@ -13,6 +13,9 @@ docker start shadow-mongo
 
 ```
 
+gcloud app create
+gcloud config set project ...
+
 ## Reference
 
 ### Libraries

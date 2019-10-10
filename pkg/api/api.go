@@ -9,13 +9,21 @@ const (
 
 	// RedirectPrefix is used to build the redirect URLs
 	RedirectPrefix string = "/r"
+
+	// DatastoreAssets collection ASSETS
+	DatastoreAssets string = "ASSETS"
 )
 
 type (
 	// Asset is the basic entity used in the shortener
 	Asset struct {
-		URI      string `json:"uri,omitempty"`
-		URL      string `json:"url" binding:"required"`
+		// URI identifies the asset
+		URI string `json:"uri,omitempty"`
+		// URL is the assets real url
+		URL string `json:"url" binding:"required"`
+		// SecretID can be used to manage the asset
 		SecretID string `json:"secret_id,omitempty"`
+		// Cohort the asset belongs to
+		Cohort string `json:"cohort,omitempty"`
 	}
 )
