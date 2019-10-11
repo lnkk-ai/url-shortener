@@ -12,6 +12,7 @@ import (
 	a "github.com/majordomusio/url-shortener/internal/api"
 	"github.com/majordomusio/url-shortener/internal/store"
 	"github.com/majordomusio/url-shortener/pkg/api"
+	"github.com/majordomusio/url-shortener/pkg/errorreporting"
 )
 
 func main() {
@@ -49,7 +50,10 @@ func main() {
 
 func shutdown() {
 	log.Printf("Shutting down ...")
+
 	store.Close()
+	errorreporting.Close()
+
 	log.Printf("... done")
 }
 
