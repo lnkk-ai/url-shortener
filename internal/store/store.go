@@ -89,7 +89,7 @@ func GetAsset(ctx context.Context, uri string) (*api.Asset, error) {
 func CreateMeasurement(ctx context.Context, m *types.MeasurementDS) error {
 
 	// anonimize the IP to be GDPR compliant
-	m.IP = anonimize(m.IP)
+	m.IP = anonimizeIP(m.IP)
 
 	k := datastore.IncompleteKey(api.DatastoreMeasurement, nil)
 	if _, err := dsClient.Put(ctx, k, m); err != nil {
@@ -101,7 +101,7 @@ func CreateMeasurement(ctx context.Context, m *types.MeasurementDS) error {
 }
 
 // Anonimize the IP to be GDPR compliant
-func anonimize(ip string) string {
+func anonimizeIP(ip string) string {
 	if strings.ContainsRune(ip, 58) {
 		// IPv6
 		parts := strings.Split(ip, ":")
