@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -32,10 +31,6 @@ func main() {
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
 	router.Use(gin.Recovery())
 
-	// add the monitoring endpoints; they are not part of the API really
-	router.GET("/status/ready", checkReadyEndpoint)
-	router.GET("/status/alive", checkAliveEndpoint)
-
 	// default endpoints that are not part of the API namespace
 	router.GET("/", a.DefaultEndpoint)
 	router.GET("/robots.txt", a.RobotsEndpoint)
@@ -55,16 +50,4 @@ func shutdown() {
 	errorreporting.Close()
 
 	log.Printf("... done")
-}
-
-// status endpoints; not part of the API since they use internal state information
-
-func checkReadyEndpoint(c *gin.Context) {
-	// TODO: real implementation, logging & auditing
-	c.String(http.StatusOK, "OK")
-}
-
-func checkAliveEndpoint(c *gin.Context) {
-	// TODO: real implementation, logging & auditing
-	c.String(http.StatusOK, "OK")
 }
