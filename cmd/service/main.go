@@ -37,7 +37,7 @@ func main() {
 
 	// group by namespace
 	router.POST(api.APIPrefix+"/short", a.ShortenEndpoint)
-	router.GET(api.RedirectPrefix+"/:short", a.RedirectEndpoint)
+	router.GET(api.RedirectPrefix+"/:uri", a.RedirectEndpoint)
 
 	// start the router on port 8080, unless ENV PORT is set to something else
 	router.Run()

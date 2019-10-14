@@ -7,7 +7,7 @@ import (
 )
 
 // standardResponse is the default way to respond to API requests
-func standardResponse(c *gin.Context, topic string, err error) {
+func standardResponse(c *gin.Context, err error) {
 	if err == nil {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	} else {
@@ -18,7 +18,7 @@ func standardResponse(c *gin.Context, topic string, err error) {
 }
 
 // standardJSONResponse is the default way to respond to API requests
-func standardJSONResponse(c *gin.Context, topic string, res interface{}, err error) {
+func standardJSONResponse(c *gin.Context, res interface{}, err error) {
 	if err == nil {
 		if res == nil {
 			c.JSON(http.StatusOK, gin.H{"status": "ok"})

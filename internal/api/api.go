@@ -30,7 +30,7 @@ func RobotsEndpoint(c *gin.Context) {
 
 // ShortenEndpoint receives a URI to be shortened
 func ShortenEndpoint(c *gin.Context) {
-	topic := "api.shorten.post"
+	//topic := "api.shorten.post"
 	ctx := appengine.NewContext(c.Request)
 
 	var asset api.Asset
@@ -42,7 +42,7 @@ func ShortenEndpoint(c *gin.Context) {
 		asset.URI = uri
 	}
 
-	standardJSONResponse(c, topic, asset, err)
+	standardJSONResponse(c, asset, err)
 }
 
 // RedirectEndpoint receives a URI to be shortened
@@ -50,14 +50,14 @@ func RedirectEndpoint(c *gin.Context) {
 	//topic := "api.redirect.get"
 	ctx := appengine.NewContext(c.Request)
 
-	short := c.Param("short")
-	if short == "" {
+	uri := c.Param("uri")
+	if uri == "" {
 		// TODO log this event
 		c.String(http.StatusOK, "42")
 		return
 	}
 
-	a, err := store.GetAsset(ctx, short)
+	a, err := store.GetAsset(ctx, uri)
 	if err != nil {
 		// TODO log this event
 		c.String(http.StatusOK, "42")
@@ -66,7 +66,7 @@ func RedirectEndpoint(c *gin.Context) {
 
 	// audit, i.e. extract some user data
 	m := types.MeasurementDS{
-		URI:            short,
+		URI:            uri,
 		User:           "anonymous",
 		IP:             c.ClientIP(),
 		UserAgent:      strings.ToLower(c.GetHeader("User-Agent")),
