@@ -1,5 +1,7 @@
 package types
 
+import "github.com/majordomusio/url-shortener/pkg/api"
+
 type (
 	// AssetDS is the interal structure used to store assets
 	AssetDS struct {
@@ -27,4 +29,29 @@ type (
 		// internal metadata
 		Created int64 `json:"-"`
 	}
+
+	// GeoLocationDS records a IP's geo location
+	GeoLocationDS struct {
+		IP          string `json:"ip"`
+		Host        string `json:"host"`
+		ISP         string `json:"isp"`
+		City        string `json:"city"`
+		CountryCode string `json:"country_code"`
+		CountryName string `json:"country_name"`
+		Latitude    string `json:"latitude"`
+		Longitude   string `json:"longitude"`
+	}
 )
+
+// AsExternal create an external representation of the asset
+func (t *AssetDS) AsExternal() *api.Asset {
+	asset := api.Asset{
+		URI:       t.URI,
+		URL:       t.URL,
+		SecretID:  t.SecretID,
+		Cohort:    t.Cohort,
+		Affiliate: t.Affiliate,
+		Tags:      t.Tags,
+	}
+	return &asset
+}

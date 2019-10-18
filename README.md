@@ -35,9 +35,11 @@ gcloud config set project ...
 * https://cloud.google.com/logging/docs/reference/libraries#client-libraries-install-go
 * https://cloud.google.com/apis/docs/cloud-client-libraries
 * https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
+* https://www.onlinetool.io/xmltogo/
 
 #### Analytics
 
 * https://www.jeffalytics.com/gdpr-ip-addresses-google-analytics/
 * https://support.google.com/analytics/answer/2763052?hl=en
 
+####

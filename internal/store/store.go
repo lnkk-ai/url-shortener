@@ -29,14 +29,14 @@ func Close() {
 	dsClient.Close()
 }
 
-// Get retrieves the asset
-func Get(uri string) (*api.Asset, error) {
-	return nil, nil
-}
-
 // AssetKey creates the datastore key for an asset
 func AssetKey(uri string) *datastore.Key {
 	return datastore.NameKey(api.DatastoreAssets, uri, nil)
+}
+
+// GeoLocationKey creates the datastore key for a geolocation
+func GeoLocationKey(ip string) *datastore.Key {
+	return datastore.NameKey(api.DatastoreGeoLocation, ip, nil)
 }
 
 // CreateAsset stores an asset in the Datastore
@@ -50,7 +50,7 @@ func CreateAsset(ctx context.Context, as *api.Asset) (string, error) {
 		URL:       as.URL,
 		Owner:     "anonymous",
 		SecretID:  secret,
-		Source:    valueWithDefault(as.Source, "redhat-capgemini.slack.com"),
+		Source:    as.Source,
 		Cohort:    as.Cohort,
 		Affiliate: as.Affiliate,
 		Tags:      as.Tags,
@@ -72,17 +72,10 @@ func GetAsset(ctx context.Context, uri string) (*api.Asset, error) {
 	k := AssetKey(uri)
 
 	if err := dsClient.Get(ctx, k, &as); err != nil {
-		errorreporting.Report(err)
 		return nil, err
 	}
 
-	asset := api.Asset{
-		URI:      as.URI,
-		URL:      as.URL,
-		SecretID: as.SecretID,
-		Cohort:   as.Cohort,
-	}
-	return &asset, nil
+	return as.AsExternal(), nil
 }
 
 // CreateMeasurement records a link activation
@@ -91,10 +84,36 @@ func CreateMeasurement(ctx context.Context, m *types.MeasurementDS) error {
 	// anonimize the IP to be GDPR compliant
 	m.IP = anonimizeIP(m.IP)
 
+	// TODO: use a queue here, go routine will not work !
+	CreateGeoLocation(ctx, m.IP)
+
 	k := datastore.IncompleteKey(api.DatastoreMeasurement, nil)
 	if _, err := dsClient.Put(ctx, k, m); err != nil {
 		errorreporting.Report(err)
 		return err
+	}
+
+	return nil
+}
+
+// CreateGeoLocation looks up the IP's geolocation if it is unknown
+func CreateGeoLocation(ctx context.Context, ip string) error {
+
+	var loc types.GeoLocationDS
+	k := GeoLocationKey(ip)
+
+	if err := dsClient.Get(ctx, k, &loc); err != nil {
+		// assuming the location is unknown
+		l, err := lookupGeoLlocation(ip)
+		if err != nil {
+			errorreporting.Report(err)
+			return err
+		}
+
+		if _, err := dsClient.Put(ctx, k, l.AsInternal()); err != nil {
+			errorreporting.Report(err)
+			return err
+		}
 	}
 
 	return nil
@@ -110,12 +129,4 @@ func anonimizeIP(ip string) string {
 	// IPv4
 	parts := strings.Split(ip, ".")
 	return fmt.Sprintf("%s.%s.%s.0", parts[0], parts[1], parts[2])
-}
-
-// valueWithDefault returns the value of a default if empty
-func valueWithDefault(value, def string) string {
-	if value == "" {
-		return value
-	}
-	return def
 }

@@ -17,6 +17,8 @@ const (
 	DatastoreAssets string = "ASSETS"
 	// DatastoreMeasurement collection MEASUREMENT
 	DatastoreMeasurement string = "MEASUREMENT"
+	// DatastoreGeoLocation collection GEO_LOCATION
+	DatastoreGeoLocation string = "GEO_LOCATION"
 )
 
 type (

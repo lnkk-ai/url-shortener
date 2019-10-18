@@ -34,6 +34,7 @@ func main() {
 	// default endpoints that are not part of the API namespace
 	router.GET("/", a.DefaultEndpoint)
 	router.GET("/robots.txt", a.RobotsEndpoint)
+	//router.GET("/debug", a.DebugEndpoint)
 
 	// group by namespace
 	router.POST(api.APIPrefix+"/short", a.ShortenEndpoint)
