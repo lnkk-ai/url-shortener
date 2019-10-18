@@ -104,7 +104,7 @@ func CreateGeoLocation(ctx context.Context, ip string) error {
 
 	if err := dsClient.Get(ctx, k, &loc); err != nil {
 		// assuming the location is unknown
-		l, err := lookupGeoLlocation(ip)
+		l, err := lookupGeoLocation(ip)
 		if err != nil {
 			errorreporting.Report(err)
 			return err

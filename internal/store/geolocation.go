@@ -38,8 +38,8 @@ type (
 	}
 )
 
-// lookupGeoLlocation looks up the IP's geolocation
-func lookupGeoLlocation(ip string) (*LocationType, error) {
+// lookupGeoLocation looks up the IP's geolocation
+func lookupGeoLocation(ip string) (*LocationType, error) {
 
 	url := fmt.Sprintf("http://api.geoiplookup.net/?query=%s", ip)
 
