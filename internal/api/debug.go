@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/majordomusio/url-shortener/internal/store"
+	"github.com/lnkk-ai/url-shortener/internal/store"
 	"google.golang.org/appengine"
 )
 

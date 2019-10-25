@@ -1,6 +1,6 @@
 package types
 
-import "github.com/majordomusio/url-shortener/pkg/api"
+import "github.com/lnkk-ai/url-shortener/pkg/api"
 
 type (
 	// AssetDS is the interal structure used to store assets

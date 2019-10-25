@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/majordomusio/url-shortener/internal/types"
+	"github.com/lnkk-ai/url-shortener/internal/types"
 	"golang.org/x/net/html/charset"
 )
 

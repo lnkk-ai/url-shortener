@@ -6,9 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/majordomusio/commons/pkg/util"
-	"github.com/majordomusio/url-shortener/internal/store"
-	"github.com/majordomusio/url-shortener/internal/types"
-	"github.com/majordomusio/url-shortener/pkg/api"
+	"github.com/lnkk-ai/url-shortener/internal/store"
+	"github.com/lnkk-ai/url-shortener/internal/types"
+	"github.com/lnkk-ai/url-shortener/pkg/api"
 	"google.golang.org/appengine"
 )
 

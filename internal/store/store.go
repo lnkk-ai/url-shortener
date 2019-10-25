@@ -8,9 +8,9 @@ import (
 	"cloud.google.com/go/datastore"
 	"github.com/majordomusio/commons/pkg/env"
 	"github.com/majordomusio/commons/pkg/util"
-	"github.com/majordomusio/url-shortener/internal/types"
-	"github.com/majordomusio/url-shortener/pkg/api"
-	"github.com/majordomusio/url-shortener/pkg/errorreporting"
+	"github.com/lnkk-ai/url-shortener/internal/types"
+	"github.com/lnkk-ai/url-shortener/pkg/api"
+	"github.com/lnkk-ai/url-shortener/pkg/errorreporting"
 )
 
 var dsClient *datastore.Client

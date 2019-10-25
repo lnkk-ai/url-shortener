@@ -8,10 +8,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	a "github.com/majordomusio/url-shortener/internal/api"
-	"github.com/majordomusio/url-shortener/internal/store"
-	"github.com/majordomusio/url-shortener/pkg/api"
-	"github.com/majordomusio/url-shortener/pkg/errorreporting"
+	a "github.com/lnkk-ai/url-shortener/internal/api"
+	"github.com/lnkk-ai/url-shortener/internal/store"
+	"github.com/lnkk-ai/url-shortener/pkg/api"
+	"github.com/lnkk-ai/url-shortener/pkg/errorreporting"
 )
 
 func main() {
